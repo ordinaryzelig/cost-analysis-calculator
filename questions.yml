@@ -1,0 +1,37 @@
+---
+bad_debt_write_off_per_year:
+  display: "Bad debt write off per year"
+  answer_string: "=yearly_practice_receivables * =bad_debt_write_off_per_year_percentage"
+bad_debt_write_off_per_year_percentage:
+  display: "(A conservative average would be 11%)"
+  answer_string: 0.11
+annual_hours_for_billing_employees:
+  display: "Annual hours for billing employees"
+  answer_string: "=number_of_billing_personnel * 2080"
+annual_salary_saved_for_billing_personnel:
+  display: "Annual salary saved for billing personnel"
+  answer_string: "=annual_hours_for_billing_employees * 13"
+annual_employee_benefits:
+  display: "Annual employee benefits"
+  answer_string: "=annual_salary_saved_for_billing_personnel * 0.20"
+annual_employer_portion_of_fica_saved:
+  display: "Annual employer portion of FICA saved"
+  answer_string: "=annual_salary_saved_for_billing_personnel * 0.075"
+cost_of_employee_turnover_learning_curve_training:
+  display: "Cost of employee turnover/learning curve/training"
+  answer_string: "=number_of_billing_personnel * 1000"
+education_and_coding_seminars_annually:
+  display: "Education and Coding Seminars Annually"
+  answer_string: "=number_of_billing_personnel * 750"
+misc_billing_costs_postage_forms_telephone:
+  display: "Misc. billing costs: Postage, Forms, Telephone, Clearinghouse, coding books etc.."
+  answer_string: "=yearly_practice_receivables * 0.0025"
+total_billing_costs:
+  display: "TOTAL BILLING COSTS"
+  answer_string: "=bad_debt_write_off_per_year + =annual_salary_saved_for_billing_personnel + =annual_salary_saved_for_billing_personnel + =annual_employer_portion_of_fica_saved + =cost_of_employee_turnover_learning_curve_training + =education_and_coding_seminars_annually + =misc_billing_costs_postage_forms_telephone"
+cost_of_using_advantage_medical_billing_solutions:
+  display: "Cost of using Advantage Medical_Billing Solutions"
+  answer_string: "=yearly_practice_receivables * =billing_service_fee_for_full_service_percentage"
+annual_change_in_net_cash_flow:
+  display: "Annual change in net cash flow"
+  answer_string: "=current_billing_cost - minus_cost_of_advantage_medical_billing"
