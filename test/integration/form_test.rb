@@ -17,12 +17,24 @@ class AppTest < MiniTest::Unit::TestCase
     Sinatra::Application.new
   end
 
+  test 'site starts with table with defaults' do
+    visit '/'
+    ['$53,326.00', '$65,976.00', '$125,303.00'].each do |annual_change_in_net_cash_flow|
+      assert_contain annual_change_in_net_cash_flow
+    end
+  end
+
   test 'form submission' do
     visit "/"
-    fill_in 'Number of doctors in your practice', :with => 5
-    fill_in 'Yearly practice receivables', :with => 3_500_000
+    3.times do |i|
+      fill_in "number_of_doctors_in_your_practice_#{i}", :with => i
+      fill_in "yearly_practice_receivables_#{i}", :with => (i + 1) * 100
+      fill_in "number_of_billing_personnel_#{i}", :with => i + 1
+    end
     click_button 'Calculate'
-    assert_contain '$274,928.00'
+    ['$36,229.42', '$72,460.50', '$108,692.25'].each do |annual_change_in_net_cash_flow|
+      assert_contain annual_change_in_net_cash_flow
+    end
   end
 
 end
