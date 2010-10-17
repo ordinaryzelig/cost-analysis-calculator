@@ -19,7 +19,7 @@ class FormTest < TestHelper
 
   test 'site starts with table with defaults' do
     visit '/'
-    ['$53,326.00', '$65,976.00', '$125,303.00'].each do |annual_change_in_net_cash_flow|
+    ['$53,326.00', '$65,976.00', '$274,928.00'].each do |annual_change_in_net_cash_flow|
       assert_contain annual_change_in_net_cash_flow
     end
   end
