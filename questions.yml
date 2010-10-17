@@ -1,37 +1,87 @@
 ---
 bad_debt_write_off_per_year:
-  display: "Bad debt write off per year"
-  answer_string: "=yearly_practice_receivables * =bad_debt_write_off_per_year_percentage"
-bad_debt_write_off_per_year_percentage:
-  display: "(A conservative average would be 11%)"
-  answer_string: 0.11
+  display_name: "Bad debt write off per year"
+  answer_string: "yearly_practice_receivables * 0.11"
+  type: currency
+a_conservative_average_would_be_11_percent:
+  display_name: "(A conservative average would be 11%)"
+  answer_string: ""
 annual_hours_for_billing_employees:
-  display: "Annual hours for billing employees"
-  answer_string: "=number_of_billing_personnel * 2080"
+  display_name: "Annual hours for billing employees"
+  answer_string: "number_of_billing_personnel * 2080"
+employee_2080_hours_per_year:
+  display_name: "(1 employee 2080 hrs per yr)"
+  answer_string: ""
 annual_salary_saved_for_billing_personnel:
-  display: "Annual salary saved for billing personnel"
-  answer_string: "=annual_hours_for_billing_employees * 13"
+  display_name: "Annual salary saved for billing personnel"
+  answer_string: "annual_hours_for_billing_employees * 13"
+  type: currency
+employee_benefits_percentage_of_salary:
+  display_name: "Employee benefits percentage of salary"
+  answer_string: "0.20"
+conservative_employee_benefits_percentage_of_salary:
+  display_name: "(20% is a conservative percentage)"
+  answer_string: ""
 annual_employee_benefits:
-  display: "Annual employee benefits"
-  answer_string: "=annual_salary_saved_for_billing_personnel * 0.20"
+  display_name: "Annual employee benefits"
+  answer_string: "annual_salary_saved_for_billing_personnel * employee_benefits_percentage_of_salary"
+  type: currency
 annual_employer_portion_of_fica_saved:
-  display: "Annual employer portion of FICA saved"
-  answer_string: "=annual_salary_saved_for_billing_personnel * 0.075"
+  display_name: "Annual employer portion of FICA saved (7.5%)"
+  answer_string: "annual_salary_saved_for_billing_personnel * 0.075"
+  type: currency
 cost_of_employee_turnover_learning_curve_training:
-  display: "Cost of employee turnover/learning curve/training"
-  answer_string: "=number_of_billing_personnel * 1000"
+  display_name: "Cost of employee turnover/learning curve/training"
+  answer_string: "number_of_billing_personnel * average_cost_of_employee_turnover_learning_curve_training"
+  type: currency
+average_cost_of_employee_turnover_learning_curve_training:
+  display_name: "(1000.00 is an avg per person)"
+  answer_string: "1000"
+  type: currency
 education_and_coding_seminars_annually:
-  display: "Education and Coding Seminars Annually"
-  answer_string: "=number_of_billing_personnel * 750"
+  display_name: "Education and Coding Seminars Annually"
+  answer_string: "number_of_billing_personnel * average_education_and_coding_seminars_annually"
+  type: currency
+average_education_and_coding_seminars_annually:
+  display_name: "(750.00 is an avg per person)"
+  answer_string: "750"
 misc_billing_costs_postage_forms_telephone:
-  display: "Misc. billing costs: Postage, Forms, Telephone, Clearinghouse, coding books etc.."
-  answer_string: "=yearly_practice_receivables * 0.0025"
+  display_name: "Misc. billing costs: Postage, Forms, Telephone, Clearinghouse, coding books etc.."
+  answer_string: "yearly_practice_receivables * average_misc_billing_costs_postage_forms_telephone"
+  type: currency
+average_misc_billing_costs_postage_forms_telephone:
+  display_name: "(.0025 of receipts is average)"
+  answer_string: "0.0025"
 total_billing_costs:
-  display: "TOTAL BILLING COSTS"
-  answer_string: "=bad_debt_write_off_per_year + =annual_salary_saved_for_billing_personnel + =annual_salary_saved_for_billing_personnel + =annual_employer_portion_of_fica_saved + =cost_of_employee_turnover_learning_curve_training + =education_and_coding_seminars_annually + =misc_billing_costs_postage_forms_telephone"
+  display_name: "TOTAL BILLING COSTS"
+  answer_string: "bad_debt_write_off_per_year + annual_salary_saved_for_billing_personnel + annual_employee_benefits + annual_employer_portion_of_fica_saved + cost_of_employee_turnover_learning_curve_training + education_and_coding_seminars_annually + misc_billing_costs_postage_forms_telephone"
+  type: currency
+yearly_practice_receivables_repeat:
+  display_name: "Yearly practice receivables"
+  answer_string: "yearly_practice_receivables"
+  type: currency
+billing_service_fee_for_full_service:
+  display_name: "Billing Service Fee for Full Service"
+  answer_string: "{3 => '6.5-9.5%', 2 => '7%', 5 => '6.5%'}[ number_of_doctors_in_your_practice ]"
+billing_service_fee_for_full_service_percentage:
+  display_name: "Billing Service Fee for Full Service"
+  answer_string: "{3 => 0.073, 2 => 0.07, 5 => 0.065}[ number_of_doctors_in_your_practice ]"
+percentage_of_what_we_collect:
+  display_name: "(Percentage of what we collect) Depending on number of factors RFQ will determine %"
+  answer_string: ""
 cost_of_using_advantage_medical_billing_solutions:
-  display: "Cost of using Advantage Medical_Billing Solutions"
-  answer_string: "=yearly_practice_receivables * =billing_service_fee_for_full_service_percentage"
+  display_name: "Cost of using Advantage Medical_Billing Solutions"
+  answer_string: "yearly_practice_receivables * billing_service_fee_for_full_service_percentage"
+  type: currency
+current_billing_cost:
+  display_name: "Current billing cost"
+  answer_string: "total_billing_costs"
+  type: currency
+minus_cost_of_advantage_medical_billing_solutions:
+  display_name: "Minus cost of Advantage Medical Billing Solutions"
+  answer_string: "cost_of_using_advantage_medical_billing_solutions"
+  type: currency
 annual_change_in_net_cash_flow:
-  display: "Annual change in net cash flow"
-  answer_string: "=current_billing_cost - minus_cost_of_advantage_medical_billing"
+  display_name: "Annual change in net cash flow"
+  answer_string: "total_billing_costs - cost_of_using_advantage_medical_billing_solutions"
+  type: currency

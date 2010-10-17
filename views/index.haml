@@ -1,2 +1,37 @@
-.something
-  yes
+%form{:method => :post}
+  %table
+    %caption= 'Cost Analysis Calculator'
+    %thead
+    %tfoot
+      %tr
+        %th{:colspan => 2} Use or Free EMR and further impact practice cost and profitability.  Call us 1.877.666.5279.  We look forward to hearing from you!
+    %tbody
+      = input_row_for('number_of_doctors_in_your_practice')
+      = input_row_for('yearly_practice_receivables')
+      %tr
+        %td
+        %td
+          %input{:type => 'submit', :value => 'Calculate'}
+      - if params[:calculator]
+        = question_row(@calculator.bad_debt_write_off_per_year)
+        = question_row(@calculator.a_conservative_average_would_be_11_percent)
+        = row_for('Number of billing personnel', @calculator.number_of_billing_personnel)
+        = question_row(@calculator.annual_hours_for_billing_employees)
+        = question_row(@calculator.employee_2080_hours_per_year)
+        = question_row(@calculator.annual_salary_saved_for_billing_personnel)
+        = question_row(@calculator.employee_benefits_percentage_of_salary)
+        = question_row(@calculator.conservative_employee_benefits_percentage_of_salary)
+        = question_row(@calculator.annual_employee_benefits)
+        = question_row(@calculator.annual_employer_portion_of_fica_saved)
+        = question_row(@calculator.cost_of_employee_turnover_learning_curve_training)
+        = question_row(@calculator.education_and_coding_seminars_annually)
+        = question_row(@calculator.misc_billing_costs_postage_forms_telephone)
+        = question_row(@calculator.average_misc_billing_costs_postage_forms_telephone)
+        = question_row(@calculator.total_billing_costs)
+        = question_row(@calculator.yearly_practice_receivables_repeat)
+        = question_row(@calculator.billing_service_fee_for_full_service)
+        = question_row(@calculator.percentage_of_what_we_collect)
+        = question_row(@calculator.cost_of_using_advantage_medical_billing_solutions)
+        = question_row(@calculator.current_billing_cost)
+        = question_row(@calculator.minus_cost_of_advantage_medical_billing_solutions)
+        = question_row(@calculator.annual_change_in_net_cash_flow)
