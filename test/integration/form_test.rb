@@ -7,7 +7,7 @@ Webrat.configure do |config|
   config.mode = :rack
 end
 
-class AppTest < MiniTest::Unit::TestCase
+class FormTest < TestHelper
 
   include Rack::Test::Methods
   include Webrat::Methods

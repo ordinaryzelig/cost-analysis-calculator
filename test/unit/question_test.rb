@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class QuestionTest < MiniTest::Unit::TestCase
+class QuestionTest < TestHelper
 
   test 'wrap answer_string words with <%= erb tags %>}' do
     question = Question.new('', '', 'asdf + qwer')

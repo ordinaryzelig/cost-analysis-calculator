@@ -1,12 +1,13 @@
 $LOAD_PATH.unshift '.'
 require 'init'
-require 'minitest/unit'
-MiniTest::Unit.autorun
+require 'test/unit'
 
-class MiniTest::Unit::TestCase
+class TestHelper < Test::Unit::TestCase
 
   def self.test(name, &block)
     define_method "test #{name}", &block
   end
+
+  undef :default_test
 
 end

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CalculatorTest < MiniTest::Unit::TestCase
+class CalculatorTest < TestHelper
 
   test 'questions returns array of questions from file' do
     questions = Calculator.new.questions
@@ -46,8 +46,8 @@ class CalculatorTest < MiniTest::Unit::TestCase
       calc
     end
     calc_1, calc_2 = calculators
-    refute_equal calc_1.m1, calc_2.m1
-    refute_equal calc_1.q1.answer, calc_2.q1.answer
+    assert_not_equal calc_1.m1, calc_2.m1
+    assert_not_equal calc_1.q1.answer, calc_2.q1.answer
   end
 
 end

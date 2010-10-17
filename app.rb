@@ -4,9 +4,9 @@ set :haml, :format => :html5
 
 get '/' do
   defaults = [
-    [3, 500_000,  1, 0.0783],
-    [2, 700_000,  1, 0.07],
-    [5, 3_500_00, 3, 0.065]
+    [3, 500,  1, 0.0783],
+    [2, 700,  1, 0.07],
+    [5, 3_500, 3, 0.065]
   ]
   @calculators = defaults.map do |number_of_doctors_in_your_practice, yearly_practice_receivables, number_of_billing_personnel, billing_service_fee_for_full_service|
     Calculator.new(
@@ -21,10 +21,16 @@ get '/' do
 end
 
 post '/' do
+  puts params.inspect
   @calculators = params[:calculators].map do |i, param|
     Calculator.new(param)
   end
   @calculators.each(&:questions) # load questions.
+  @calculators.each do |c|
+    puts c.number_of_doctors_in_your_practice
+    puts c.annual_change_in_net_cash_flow
+    puts
+  end
   haml :index
 end
 

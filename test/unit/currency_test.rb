@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CurrencyTest < MiniTest::Unit::TestCase
+class CurrencyTest < TestHelper
 
   test '1.0 = $1.00' do
     assert_equal '$1.00', 1.0.to_currency

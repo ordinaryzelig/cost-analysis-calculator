@@ -14,11 +14,6 @@ class Calculator
     @questions ||= load_questions
   end
 
-  def attr(type, name, initial_value)
-    self.class.send(:"attr_#{type}", name) unless respond_to?(name)
-    instance_variable_set :"@#{name}", initial_value
-  end
-
   def get_binding
     binding
   end
@@ -39,6 +34,11 @@ class Calculator
   def define_question(question)
     question.calculator = self
     attr(:reader, question.name, question)
+  end
+
+  def attr(type, name, initial_value)
+    self.class.send(:"attr_#{type}", name) unless respond_to?(name)
+    instance_variable_set :"@#{name}", initial_value
   end
 
 end

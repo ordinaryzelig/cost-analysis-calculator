@@ -1,3 +1,5 @@
+require 'rubygems'
+require "bundler/setup"
 ROOT_PATH = File.dirname(__FILE__)
 
 require 'sinatra'
