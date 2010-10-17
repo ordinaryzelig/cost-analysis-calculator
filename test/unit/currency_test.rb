@@ -26,4 +26,8 @@ class CurrencyTest < MiniTest::Unit::TestCase
     assert_equal '$100,000.00', 100_000.to_currency
   end
 
+  test '1.00001 = $1.00' do
+    assert_equal '$1.00', 1.00001.to_currency
+  end
+
 end

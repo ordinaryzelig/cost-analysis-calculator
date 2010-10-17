@@ -6,13 +6,21 @@ class Calculator
   # set value.
   def initialize(atts = {})
     atts.each do |key, val|
-      self.class.send(:attr_accessor, key) unless respond_to?(key)
-      send("#{key}=", val)
+      attr(:accessor, key, val)
     end
   end
 
   def questions
     @questions ||= load_questions
+  end
+
+  def attr(type, name, initial_value)
+    self.class.send(:"attr_#{type}", name) unless respond_to?(name)
+    instance_variable_set :"@#{name}", initial_value
+  end
+
+  def get_binding
+    binding
   end
 
   private
@@ -29,32 +37,8 @@ class Calculator
   # Method will return question.
   # Also, define answer method on question.
   def define_question(question)
-    self.class.send(:define_method, question.name) do
-      question
-    end
-    define_answer_method_on(question)
-  end
-
-  # Question will have :answer method defined with current binding.
-  # Binding will allow question.answer refer to calculator methods including other questions.
-  # answer_string will be ready for erb interpretation.
-  # eval the resulting string.
-  # whew!
-  def define_answer_method_on(question)
-    b = binding
-    question.define_singleton_method :answer do
-      begin
-        erb_result = ERB.new(formatted_answer_string).result(b)
-        eval erb_result, b
-      rescue NameError => name_ex
-        raise "Don't recognize '#{name_ex.name}' in '#{question.answer_string}'. Perhaps you misspelled it?"
-      rescue Exception => ex
-        puts ex.inspect
-        puts question.formatted_answer_string
-        puts erb_result.inspect
-        raise "something went wrong with #{question.name}: #{question.answer_string} (#{ex.class})"
-      end
-    end
+    question.calculator = self
+    attr(:reader, question.name, question)
   end
 
 end

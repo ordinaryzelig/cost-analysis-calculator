@@ -60,18 +60,12 @@ yearly_practice_receivables_repeat:
   display_name: "Yearly practice receivables"
   answer_string: "yearly_practice_receivables"
   type: currency
-billing_service_fee_for_full_service:
-  display_name: "Billing Service Fee for Full Service"
-  answer_string: "{3 => '6.5-9.5%', 2 => '7%', 5 => '6.5%'}[ number_of_doctors_in_your_practice ]"
-billing_service_fee_for_full_service_percentage:
-  display_name: "Billing Service Fee for Full Service"
-  answer_string: "{3 => 0.073, 2 => 0.07, 5 => 0.065}[ number_of_doctors_in_your_practice ]"
 percentage_of_what_we_collect:
   display_name: "(Percentage of what we collect) Depending on number of factors RFQ will determine %"
   answer_string: ""
 cost_of_using_advantage_medical_billing_solutions:
   display_name: "Cost of using Advantage Medical_Billing Solutions"
-  answer_string: "yearly_practice_receivables * billing_service_fee_for_full_service_percentage"
+  answer_string: "yearly_practice_receivables * billing_service_fee_for_full_service"
   type: currency
 current_billing_cost:
   display_name: "Current billing cost"

@@ -3,16 +3,28 @@ enable :run if $0 == __FILE__
 set :haml, :format => :html5
 
 get '/' do
-  @calculator = Calculator.new
+  defaults = [
+    [3, 500_000,  1, 0.0783],
+    [2, 700_000,  1, 0.07],
+    [5, 3_500_00, 3, 0.065]
+  ]
+  @calculators = defaults.map do |number_of_doctors_in_your_practice, yearly_practice_receivables, number_of_billing_personnel, billing_service_fee_for_full_service|
+    Calculator.new(
+      :number_of_doctors_in_your_practice => number_of_doctors_in_your_practice,
+      :yearly_practice_receivables => yearly_practice_receivables,
+      :number_of_billing_personnel => number_of_billing_personnel,
+      :billing_service_fee_for_full_service => billing_service_fee_for_full_service
+    )
+  end
+  @calculators.each(&:questions) # load questions.
   haml :index
 end
 
 post '/' do
-  defaults = {
-    :number_of_billing_personnel => 3
-  }
-  @calculator = Calculator.new(params[:calculator].merge(defaults))
-  @calculator.questions # load questions.
+  @calculators = params[:calculators].map do |i, param|
+    Calculator.new(param)
+  end
+  @calculators.each(&:questions) # load questions.
   haml :index
 end
 
@@ -30,36 +42,28 @@ helpers do
   end
 
   def label_for(field)
-    "<label for=\"#{field}\">#{field.gsub('_', ' ').capitalize}</label>"
+    "<label>#{field.to_s.gsub('_', ' ').capitalize}</label>"
   end
 
-  def text_field_for(field)
-    "<input type=\"text\" id=\"#{field}\" name=\"calculator[#{field}]\" value=\"#{@calculator.try(field)}\" size=\"5\" />"
+  def text_field_for(field, index, calculator)
+    "<input type=\"text\" id=\"#{field}_#{index}\" name=\"calculators[#{index}][#{field}]\" value=\"#{calculator.try(field)}\" size=\"5\" />"
   end
 
   def input_row_for(field)
     tr do
       <<-END
 #{th label_for(field)}
-#{td text_field_for(field)}
+#{@calculators.each_with_index.map { |calc, i| td(text_field_for(field, i, calc)) }.join("\n") }
       END
     end
   end
 
-  def question_row(question)
+  def question_row(field)
+    questions = @calculators.map(&field)
     tr do
       <<-END
-#{th question.display_name}
-#{td (question.currency? ? question.answer.to_currency : question.answer)}
-      END
-    end
-  end
-
-  def row_for(th_content, td_content)
-    tr do
-      <<-END
-#{th(th_content)}
-#{td(td_content)}
+#{th questions.first.display_name}
+#{questions.map { |question| td((question.currency? ? question.answer.to_currency : question.answer)) }.join("\n")}
       END
     end
   end

@@ -1,6 +1,7 @@
 class Question
 
   attr_reader :name, :display_name, :answer_string, :formatted_answer_string, :type
+  attr_writer :calculator
 
   def initialize(*args)
     @name, @display_name, @answer_string, @type = args
@@ -16,7 +17,21 @@ class Question
     type == 'currency'
   end
 
-  # answer() is defined as a singleton class in question.define_question().
+  def answer
+    begin
+      # Using ERB here so that methods called with have to_s called on them.
+      # then eval can do its thing.
+      erb_result = ERB.new(formatted_answer_string).result(@calculator.get_binding)
+      eval erb_result
+    rescue NameError => name_ex
+      raise "Didn't recognize '#{name_ex.name}' in definition for #{name}: '#{answer_string}'. Perhaps you misspelled it?"
+    rescue Exception => ex
+      puts ex.inspect
+      puts formatted_answer_string
+      puts erb_result.inspect
+      raise "something went wrong with #{name}: #{answer_string} (#{ex.class})"
+    end
+  end
 
   def self.format_for_erb(string)
     string.split.map do |token|
