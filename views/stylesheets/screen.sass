@@ -1,10 +1,57 @@
 @import reset
 
-body
-  width: 800px
+.centered
   margin-left: auto
   margin-right: auto
 
+body
+  width: 800px
+  margin-top: 1cm
+
 table
-  td, th
+  caption
+    font-weight: bold
+    font-size: 12pt
+    text-align: center
+    padding-bottom: 5mm
+  thead
+    th
+      font-weight: bold
+      font-size: 12pt
+      text-align: center
+  tbody
+    td, th
+      border: 1px solid lightgray
+      padding: 1mm
+      font-size: 10pt
+      font-weight: bold
+  tr.input
+    td
+      background-color: yellow
+      input
+        text-align: right
+        background-color: yellow
+        border: 3px solid orange
+  td.answerCell
+    text-align: right
+  tr.dividerRow
+    background-color: green
+  tfoot
+    font-size: 10pt
+    tr
+      th
+        padding-top: 5mm
+
+#actions
+  text-align: center
+  margin: 5mm
+  input
+    font-size: 20pt
+  a#reset
+    font-size: 14pt
+    padding: 2mm
     border: 1px solid black
+    background-color: lightgreen
+    margin: 5mm
+a:visited
+  color: blue

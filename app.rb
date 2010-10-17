@@ -46,11 +46,11 @@ helpers do
   end
 
   def text_field_for(field, index, calculator)
-    "<input type=\"text\" id=\"#{field}_#{index}\" name=\"calculators[#{index}][#{field}]\" value=\"#{calculator.try(field)}\" size=\"5\" />"
+    "<input type=\"text\" id=\"#{field}_#{index}\" name=\"calculators[#{index}][#{field}]\" value=\"#{calculator.try(field)}\" size=\"20\" />"
   end
 
   def input_row_for(field)
-    tr do
+    tr('class="input"') do
       <<-END
 #{th label_for(field)}
 #{@calculators.each_with_index.map { |calc, i| td(text_field_for(field, i, calc)) }.join("\n") }
@@ -63,25 +63,29 @@ helpers do
     tr do
       <<-END
 #{th questions.first.display_name}
-#{questions.map { |question| td((question.currency? ? question.answer.to_currency : question.answer)) }.join("\n")}
+#{questions.map { |question| td((question.currency? ? question.answer.to_currency : question.answer), 'class="answerCell"') }.join("\n")}
       END
     end
   end
 
-  def tr
+  def tr(options = nil)
     <<-END
-<tr>
+<tr #{options}>
 #{yield}
 </tr>
     END
   end
 
-  def th(content = nil)
-    "<th>#{block_given? ? yield : content}</th>"
+  def th(content, options = nil)
+    "<th #{options}>#{content}</th>"
   end
 
-  def td(content = nil)
-    "<td>#{block_given? ? yield : content}</td>"
+  def td(content, options = nil)
+    "<td #{options}>#{content}</td>"
+  end
+
+  def divider_row
+    tr('class="dividerRow"') { td('&nbsp;', "colspan=\"#{@calculators.size + 1}\"") }
   end
 
   private

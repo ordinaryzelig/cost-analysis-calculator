@@ -1,11 +1,18 @@
 %form{:method => :post}
-  %table
-    %caption= 'Cost Analysis Calculator'
+  %table.centered
+    %caption= 'COST ANALYSIS CALCULATOR'
     %thead
+      %tr
+        %th Description
+        %th Your Practice
+        %th Example 1
+        %th Example 2
     %tfoot
       %tr
         %th{:colspan => @calculators.size + 1} Use or Free EMR and further impact practice cost and profitability.  Call us 1.877.666.5279.  We look forward to hearing from you!
+      = divider_row
     %tbody
+      = divider_row
       = input_row_for(:number_of_doctors_in_your_practice)
       = input_row_for(:yearly_practice_receivables)
       = question_row(:bad_debt_write_off_per_year)
@@ -23,6 +30,7 @@
       = question_row(:misc_billing_costs_postage_forms_telephone)
       = question_row(:average_misc_billing_costs_postage_forms_telephone)
       = question_row(:total_billing_costs)
+      = divider_row
       = question_row(:yearly_practice_receivables_repeat)
       = input_row_for(:billing_service_fee_for_full_service)
       = question_row(:percentage_of_what_we_collect)
@@ -30,7 +38,6 @@
       = question_row(:current_billing_cost)
       = question_row(:minus_cost_of_advantage_medical_billing_solutions)
       = question_row(:annual_change_in_net_cash_flow)
-      %tr
-        %td{:colspan => @calculators.size}
-        %td
-          %input{:type => 'submit', :value => 'Calculate'}
+  #actions
+    %input{:type => 'submit', :value => 'Recalculate'}
+    %a{:href => '/', :id => 'reset'} Reset

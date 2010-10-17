@@ -31,7 +31,7 @@ class AppTest < MiniTest::Unit::TestCase
       fill_in "yearly_practice_receivables_#{i}", :with => (i + 1) * 100
       fill_in "number_of_billing_personnel_#{i}", :with => i + 1
     end
-    click_button 'Calculate'
+    click_button 'Recalculate'
     ['$36,229.42', '$72,460.50', '$108,692.25'].each do |annual_change_in_net_cash_flow|
       assert_contain annual_change_in_net_cash_flow
     end
