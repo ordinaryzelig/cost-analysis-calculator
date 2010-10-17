@@ -15,4 +15,15 @@ class QuestionTest < MiniTest::Unit::TestCase
     assert_equal '1', q.to_s
   end
 
+  test 'pretty returns formatted string of answer' do
+    calc = Calculator.new
+    ['currency', 'percentage', 'note'].each do |display_type|
+      q = Question.new(display_type, '', '1', display_type)
+      calc.send(:define_question, q)
+    end
+    assert_equal '$1.00', calc.currency.pretty
+    assert_equal '1%', calc.percentage.pretty
+    assert_equal '', calc.note.pretty
+  end
+
 end

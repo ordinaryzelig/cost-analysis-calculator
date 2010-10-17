@@ -1,10 +1,10 @@
 class Question
 
-  attr_reader :name, :display_name, :answer_string, :formatted_answer_string, :type
+  attr_reader :name, :display_name, :answer_string, :formatted_answer_string, :display_type
   attr_writer :calculator
 
   def initialize(*args)
-    @name, @display_name, @answer_string, @type = args
+    @name, @display_name, @answer_string, @display_type = args
     @formatted_answer_string = self.class.format_for_erb(@answer_string)
     require_args
   end
@@ -13,8 +13,15 @@ class Question
     answer.to_s
   end
 
-  def currency?
-    type == 'currency'
+  def pretty
+    case display_type
+    when 'currency', 'percentage'
+      answer.send("to_#{display_type}")
+    when 'note'
+      ''
+    else
+      answer.to_s
+    end
   end
 
   def answer

@@ -60,10 +60,11 @@ helpers do
 
   def question_row(field)
     questions = @calculators.map(&field)
-    tr do
+    display_type = questions.first.display_type
+    tr("class=\"#{display_type}\"") do
       <<-END
 #{th questions.first.display_name}
-#{questions.map { |question| td((question.currency? ? question.answer.to_currency : question.answer), 'class="answerCell"') }.join("\n")}
+#{questions.map { |question| td(question.pretty, 'class="answerCell"') }.join("\n")}
       END
     end
   end

@@ -27,7 +27,7 @@ class Calculator
 
   def load_questions
     YAML.load_file(File.join(ROOT_PATH, 'questions.yml')).map do |name, atts|
-      question = Question.new(name, atts['display_name'], atts['answer_string'], atts['type'])
+      question = Question.new(name, atts['display_name'], atts['answer_string'], atts['display_type'])
       define_question(question)
       question
     end
