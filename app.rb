@@ -2,30 +2,39 @@ require './init'
 enable :run if $0 == __FILE__
 set :haml, :format => :html5
 
+#get '/' do
+  #defaults = [
+    #[3, 500_000,  1, 0.0783],
+    #[2, 700_000,  1, 0.07],
+    #[5, 3_500_000, 3, 0.065]
+  #]
+  #@calculators = defaults.map do |number_of_doctors_in_your_practice, yearly_practice_receivables, number_of_billing_personnel, billing_service_fee_for_full_service|
+    #Calculator.new(
+      #:number_of_doctors_in_your_practice => number_of_doctors_in_your_practice,
+      #:yearly_practice_receivables => yearly_practice_receivables,
+      #:number_of_billing_personnel => number_of_billing_personnel,
+      #:billing_service_fee_for_full_service => billing_service_fee_for_full_service
+    #)
+  #end
+  #@calculators.each(&:questions) # load questions.
+  #haml :index
+#end
+
+#post '/' do
+  #@calculators = params[:calculators].map do |i, param|
+    #Calculator.new(param)
+  #end
+  #@calculators.each(&:questions) # load questions.
+  #haml :index
+#end
+
 get '/' do
-  defaults = [
-    [3, 500_000,  1, 0.0783],
-    [2, 700_000,  1, 0.07],
-    [5, 3_500_000, 3, 0.065]
-  ]
-  @calculators = defaults.map do |number_of_doctors_in_your_practice, yearly_practice_receivables, number_of_billing_personnel, billing_service_fee_for_full_service|
-    Calculator.new(
-      :number_of_doctors_in_your_practice => number_of_doctors_in_your_practice,
-      :yearly_practice_receivables => yearly_practice_receivables,
-      :number_of_billing_personnel => number_of_billing_personnel,
-      :billing_service_fee_for_full_service => billing_service_fee_for_full_service
-    )
-  end
-  @calculators.each(&:questions) # load questions.
-  haml :index
+  haml :expired
 end
 
-post '/' do
-  @calculators = params[:calculators].map do |i, param|
-    Calculator.new(param)
-  end
-  @calculators.each(&:questions) # load questions.
-  haml :index
+get '/screenshot.png' do
+  content_type 'image/png'
+  File.read(File.join(ROOT_PATH, 'views/screenshot.png'))
 end
 
 get '/stylesheets/screen.css' do
